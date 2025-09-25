@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APOKAS</title>
+
+  <!-- Open Graph / WhatsApp -->
+  <meta property="og:site_name" content="APOKAS">
+  <meta property="og:title" content="APOKAS">
+  <meta property="og:description" content="Immagine a schermo intero con audio.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="ghcard.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="APOKAS">
+  <meta name="twitter:description" content="Immagine a schermo intero con audio.">
+  <meta name="twitter:image" content="ghcard.jpg">
+
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: url('ghcard.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgm" src="audio.wav" autoplay loop playsinline webkit-playsinline></audio>
+  <script>
+    (function() {
+      const a = document.getElementById('bgm');
+      const tryPlay = () => a.play().catch(() => {});
+      if (document.readyState === 'complete') { tryPlay(); }
+      else {
+        window.addEventListener('load', tryPlay, { once: true });
+        document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
+      }
+      const evs = ['pointerdown','click','touchstart','keydown','scroll'];
+      const once = () => { tryPlay(); evs.forEach(e => window.removeEventListener(e, once)); };
+      evs.forEach(e => window.addEventListener(e, once, { passive: true }));
+    })();
+  </script>
+</body>
+</html>
